@@ -20,9 +20,9 @@ export default {
 
 <style>
 body {
-  background-image: url("@/assets/gradual.png");
+  background-image: url("@/assets/images/gradual.png");
   /*background-color: black;*/
   background-size: cover;
-
+  background-repeat: no-repeat;
 }
 </style>
