@@ -10,33 +10,19 @@ export class GameMap extends AcGameObject {
         this.L = 0;
 
         this.rows = 13;
-        this.cols = 13;
+        this.cols = 14;
 
         this.inner_walls_count = 20;
         this.walls = [];
 
     }
 
-    // check_connectivity(g, sx, sy, tx, ty) {
-    //     if (sx == tx && sy == ty) return true;
-    //     g[sx][sy] = true;
-    //
-    //     let dx = [-1, 0, 1, 0], dy = [0, 1, 0, -1];
-    //     for (let i = 0; i < 4; i ++ ) {
-    //         let x = sx + dx[i], y = sy + dy[i];
-    //         if (!g[x][y] && this.check_connectivity(g, x, y, tx, ty))
-    //             return true;
-    //     }
-    //
-    //     return false;
-    // }
-
     check_connectivity(g, sx, sy, tx, ty) {
         if (sx == tx && sy == ty) return true;
         g[sx][sy] = true;
 
         let dx = [-1, 0, 1, 0], dy = [0, 1, 0, -1];
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 4; i ++ ) {
             let x = sx + dx[i], y = sy + dy[i];
             if (!g[x][y] && this.check_connectivity(g, x, y, tx, ty))
                 return true;
@@ -64,15 +50,16 @@ export class GameMap extends AcGameObject {
             g[0][c] = g[this.rows - 1][c] = true;
         }
 
+        // 创建随机障碍物
         for (let i = 0; i < this.inner_walls_count / 2; i++) {
             for (let j = 0; j < 1000; j++) {
                 let r = parseInt(Math.random() * this.rows);
                 let c = parseInt(Math.random() * this.cols);
-                if (g[r][c] || g[c][r]) continue;
+                if (g[r][c] || g[this.rows - 1 - r][this.cols - 1 - c]) continue;
                 if (r == this.rows - 2 && c == 1 || r == 1 && c == this.cols - 2)
                     continue;
 
-                g[r][c] = g[c][r] = true;
+                g[r][c] = g[this.rows - 1 - r][this.cols - 1 - c] = true;
                 break;
             }
         }
