@@ -1,4 +1,4 @@
-package com.kob.backend.controller;
+package com.kob.backend.controller.pk;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
