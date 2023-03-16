@@ -44,7 +44,9 @@ export default {
           store.dispatch("getinfo", {
             success() {
               router.push({ name: 'home' });
-              console.log(store.state.user);
+              //console.log(store.state.user);
+            },error() {
+              error_message.value = "无用户信息";
             }
           })
         },

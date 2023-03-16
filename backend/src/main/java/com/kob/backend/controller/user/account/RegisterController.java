@@ -1,9 +1,8 @@
 package com.kob.backend.controller.user.account;
 
-import com.kob.backend.controller.form.user.account.RegisterForm;
+import com.kob.backend.controller.form.user.account.RegisterDTO;
 import com.kob.backend.service.user.account.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +20,7 @@ public class RegisterController {
     RegisterService registerService;
 
     @PostMapping("/user/account/register/")
-    public Map<String, String> register(@RequestBody RegisterForm registerForm) {
+    public Map<String, String> register(@RequestBody RegisterDTO registerForm) {
         String username = registerForm.getUsername();
         String password = registerForm.getPassword();
         String confirmedPassword = registerForm.getConfirmedPassword();

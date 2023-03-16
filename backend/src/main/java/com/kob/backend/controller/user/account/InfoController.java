@@ -1,5 +1,6 @@
 package com.kob.backend.controller.user.account;
 
+import com.kob.backend.common.util.R;
 import com.kob.backend.service.user.account.InfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,9 @@ public class InfoController {
     private InfoService infoService;
 
     @GetMapping("/user/account/info/")
-    public Map<String, String> getInfo() {
-        return infoService.getInfo();
+    public R getInfo() {
+        Map<String, String> map = infoService.getInfo();
+        return R.ok("用户信息获取成功").ok(map);
     }
+
 }

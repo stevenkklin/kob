@@ -1,6 +1,7 @@
 package com.kob.backend.controller.user.account;
 
-import com.kob.backend.controller.form.user.account.LoginForm;
+import com.kob.backend.common.util.R;
+import com.kob.backend.controller.form.user.account.LoginDTO;
 import com.kob.backend.service.user.account.LoginService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -23,24 +25,17 @@ public class LoginController {
 
     @PostMapping("/user/account/token/")
     @ApiOperation("登录系统")
-    public Map<String, String> getToken(@Valid @RequestBody LoginForm form) {
+    public R getToken(@Valid @RequestBody LoginDTO form) {
 
         String username = form.getUsername();
         String password = form.getPassword();
-
-        return loginService.getToken(username, password);
+        Map<String, String> map = loginService.getToken(username, password);
+        return R.ok("登录成功").ok(map);
     }
 
 
-//    @PostMapping("/user/account/token2/")
-//    public Map<String, String> getToken2(@RequestParam Map<String, String> map) {
-//
-//        String username = map.get("username");
-//        String password = map.get("password");
-//
-//        return loginService.getToken(username, password);
-//    }
-//
+
+
 //    @PostMapping("/user/account/token3/")
 //    public String getToken3(@RequestBody User user) {
 //        return "success";

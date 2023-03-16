@@ -35,8 +35,9 @@ export default {
                 password: data.password,
             })
                 .then(res => {
-                    if (res.data.error_message === "success") {
+                    if (res.data.code === 200) {
                         context.commit("updateToken", res.data.token);
+                        console.log(res.data.token)
                         data.success(res);
                     } else {
                         data.error(res);
@@ -46,6 +47,7 @@ export default {
                     data.error(res);
                 })
                 .then(() => {
+
                     console.log("getToken")
                 });
         },
@@ -57,9 +59,10 @@ export default {
                 }
             })
                 .then(res => {
-                    if (res.data.error_message === "success") {
+                    if (res.data.code === 200) {
                         context.commit("updateUser", {
                             ...res.data,
+
                             is_login: true,
                         });
                         data.success(res);
@@ -71,6 +74,7 @@ export default {
                     data.error(res);
                 })
                 .then(() => {
+
                     console.log("getInfoByToken")
                 });
         },
