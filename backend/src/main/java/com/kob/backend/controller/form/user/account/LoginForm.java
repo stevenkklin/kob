@@ -1,4 +1,4 @@
-package com.kob.backend.controller.form;
+package com.kob.backend.controller.form.user.account;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

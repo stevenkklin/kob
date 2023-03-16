@@ -1,7 +1,6 @@
 package com.kob.backend.controller.user.account;
 
-import com.kob.backend.controller.form.LoginForm;
-import com.kob.backend.pojo.User;
+import com.kob.backend.controller.form.user.account.LoginForm;
 import com.kob.backend.service.user.account.LoginService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
