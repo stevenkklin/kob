@@ -61,7 +61,7 @@ public class RegisterServiceImpl implements RegisterService {
         queryWrapper.eq("username", username);
         List<User> users = userMapper.selectList(queryWrapper);
         if (!users.isEmpty()) {
-            throw new KOBException("两次密码长度不一致");
+            throw new KOBException("用户名已被使用");
         }
 
         String encodedPassword = passwordEncoder.encode(password);
