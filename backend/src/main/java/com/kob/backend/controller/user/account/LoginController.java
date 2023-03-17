@@ -29,6 +29,7 @@ public class LoginController {
 
         String username = form.getUsername();
         String password = form.getPassword();
+        System.out.println("login" + username + " " + password);
         Map<String, String> map = loginService.getToken(username, password);
         return R.ok("登录成功").ok(map);
     }

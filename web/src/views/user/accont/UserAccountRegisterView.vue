@@ -47,10 +47,11 @@ export default {
         confirmedPassword: confirmedPassword.value,
       })
           .then(res => {
-            if (res.data.code === 200) {
+            console.log(res)
+            if (res.data.code === 200 ) {
               router.push({name: "user_account_login"});
             } else {
-              error_message.value = res.data.error_message;
+              error_message.value = res.data.msg;
             }
           })
           .catch(() => {

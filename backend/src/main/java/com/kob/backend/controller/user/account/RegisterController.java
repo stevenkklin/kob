@@ -1,5 +1,6 @@
 package com.kob.backend.controller.user.account;
 
+import com.kob.backend.common.util.R;
 import com.kob.backend.controller.form.user.account.RegisterDTO;
 import com.kob.backend.service.user.account.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,13 @@ public class RegisterController {
     RegisterService registerService;
 
     @PostMapping("/user/account/register/")
-    public Map<String, String> register(@RequestBody RegisterDTO registerForm) {
+    public R register(@RequestBody RegisterDTO registerForm) {
         String username = registerForm.getUsername();
         String password = registerForm.getPassword();
+        System.out.println("register" + username + " " + password);
         String confirmedPassword = registerForm.getConfirmedPassword();
-        return registerService.register(username, password, confirmedPassword);
+        Map<String, String> map = registerService.register(username, password, confirmedPassword);
+        return R.ok("注册成功").ok(map);
     }
 
 }

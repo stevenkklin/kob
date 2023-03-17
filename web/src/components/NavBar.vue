@@ -25,12 +25,12 @@
             <ul class="dropdown-menu">
               <li><router-link class="dropdown-item" :to="{name: 'user_bot_index'}">我的Bot</router-link></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#" @click="logout">退出</a></li>
+              <li><router-link class="dropdown-item" :to="{name: 'user_account_login'}" @click="logout">退出</router-link></li>
             </ul>
           </li>
         </ul>
 
-        <ul class="navbar-nav" v-else>
+        <ul class="navbar-nav" v-else-if="!$store.state.user.pulling_info">
           <li class="nav-item">
             <router-link class="nav-link" :to="{name: 'user_account_login' }" role="button">
               登录

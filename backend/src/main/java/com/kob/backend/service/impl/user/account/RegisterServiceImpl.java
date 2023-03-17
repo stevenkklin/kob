@@ -1,6 +1,7 @@
 package com.kob.backend.service.impl.user.account;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.kob.backend.exception.KOBException;
 import com.kob.backend.mapper.UserMapper;
 import com.kob.backend.pojo.User;
 import com.kob.backend.service.user.account.RegisterService;
@@ -29,54 +30,46 @@ public class RegisterServiceImpl implements RegisterService {
     public Map<String, String> register(String username, String password, String confirmedPassword) {
         Map<String, String> map = new HashMap<>();
         if (username == null) {
-            map.put("error_message", "用户名不能为空");
-            return map;
+            throw new KOBException("用户名不能为空");
         }
         if (password == null || confirmedPassword == null) {
-            map.put("error_message", "密码不能为空");
-            return map;
+            throw new KOBException("密码不能为空");
         }
 
         username = username.trim();
         if (username.length() == 0) {
-            map.put("error_message", "用户名不能为空");
-            return map;
+            throw new KOBException("用户名不能为空");
         }
 
         if (password.length() == 0 || confirmedPassword.length() == 0) {
-            map.put("error_message", "密码不能为空");
-            return map;
+            throw new KOBException("密码不能为空");
         }
 
         if (username.length() > 100) {
-            map.put("error_message", "用户名长度不能大于100");
-            return map;
+            throw new KOBException("用户名长度不能超过100");
         }
 
         if (password.length() > 100 || confirmedPassword.length() > 100) {
-            map.put("error_message", "密码长度不能大于100");
-            return map;
+            throw new KOBException("密码长度不能超过100");
         }
 
         if (!password.equals(confirmedPassword)) {
-            map.put("error_message", "两次密码不一致");
-            return map;
+            throw new KOBException("两次密码长度不一致");
         }
 
         QueryWrapper<User> queryWrapper = new QueryWrapper<User>();
         queryWrapper.eq("username", username);
         List<User> users = userMapper.selectList(queryWrapper);
         if (!users.isEmpty()) {
-            map.put("error_message", "用户名已存在");
-            return map;
+            throw new KOBException("两次密码长度不一致");
         }
 
         String encodedPassword = passwordEncoder.encode(password);
         String photo = "https://cdn.acwing.com/media/user/profile/photo/35246_lg_70869c519e.jpg";
-        User user = new User(null, username, password, photo);
+        User user = new User(null, username, encodedPassword, photo);
         userMapper.insert(user);
 
-        map.put("error_message", "success");
+        map.put("msg", "success");
         return map;
     }
 }

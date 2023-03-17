@@ -7,6 +7,7 @@ export default {
         photo: "",
         token: "",
         is_login: false,
+        pulling_info: true, // 是否真在云端拉取信息
     },
     getters: {},
     mutations: {
@@ -25,6 +26,9 @@ export default {
             state.photo = "";
             state.token = "";
             state.is_login = false;
+        },
+        updatePullingInfo(state, pulling_info) {
+            state.pulling_info = pulling_info;
         }
     },
     actions: {
@@ -35,9 +39,10 @@ export default {
                 password: data.password,
             })
                 .then(res => {
-                    if (res.data.code === 200) {
+                    console.log("login"+res)
+                    if (res.data.code === 200 ) {
+                        localStorage.setItem("jwt_token", res.data.token);
                         context.commit("updateToken", res.data.token);
-                        console.log(res.data.token)
                         data.success(res);
                     } else {
                         data.error(res);
@@ -47,7 +52,6 @@ export default {
                     data.error(res);
                 })
                 .then(() => {
-
                     console.log("getToken")
                 });
         },
@@ -59,10 +63,9 @@ export default {
                 }
             })
                 .then(res => {
-                    if (res.data.code === 200) {
+                    if (res.data.code === 200 ) {
                         context.commit("updateUser", {
                             ...res.data,
-
                             is_login: true,
                         });
                         data.success(res);
@@ -74,11 +77,11 @@ export default {
                     data.error(res);
                 })
                 .then(() => {
-
                     console.log("getInfoByToken")
                 });
         },
         logout(context) {
+            localStorage.removeItem("jwt_token");
             context.commit("logout");
         }
     },
