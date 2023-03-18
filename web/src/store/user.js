@@ -39,7 +39,6 @@ export default {
                 password: data.password,
             })
                 .then(res => {
-                    console.log("login"+res)
                     if (res.data.code === 200 ) {
                         localStorage.setItem("jwt_token", res.data.token);
                         context.commit("updateToken", res.data.token);
