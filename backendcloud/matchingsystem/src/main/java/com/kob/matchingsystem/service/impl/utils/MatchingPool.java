@@ -1,4 +1,4 @@
-package com.kob.matchingsystem.service.utils;
+package com.kob.matchingsystem.service.impl.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ import java.util.concurrent.locks.ReentrantLock;
 @Component
 public class MatchingPool extends Thread{
     private static List<Player> players = new ArrayList<>();
-    private ReentrantLock lock = new ReentrantLock();
+    private final ReentrantLock lock = new ReentrantLock();
     private static RestTemplate restTemplate;
 
     private final static String startGameUrl = "http://127.0.0.1:3000/pk/start/game/";
@@ -49,7 +49,6 @@ public class MatchingPool extends Thread{
         } finally {
             lock.unlock();
         }
-        lock.unlock();
      }
 
     private void increaseWaitingTime() {    // 将所有当前玩家的等待时间加1
