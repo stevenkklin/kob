@@ -34,7 +34,7 @@ export default {
     actions: {
         login(context, data) {
             // 获取token
-            axios.post('http://localhost:3000/user/account/token/', {
+            axios.post('http://10.21.110.96:3000/user/account/token/', {
                 username: data.username,
                 password: data.password,
             })
@@ -56,7 +56,7 @@ export default {
         },
         getinfo(context, data) {
             // getInfo by token
-            axios.get('http://localhost:3000/user/account/info/', {
+            axios.get('http://10.21.110.96:3000/user/account/info/', {
                 headers: {
                     Authorization: "Bearer " + context.state.token,
                 }

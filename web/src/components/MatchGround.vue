@@ -1,7 +1,7 @@
 <template>
   <div class="matchground">
     <div class="row">
-      <div class="col-6">
+      <div class="col-4">
         <div class="user-photo">
           <div class="user-photo">
             <img :src="$store.state.user.photo" alt="">
@@ -11,7 +11,17 @@
           </div>
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-4">
+        <div class="user-select-bot">
+          <select v-model="select_bot" class="form-select" aria-label="Default select example">
+            <option value="-1" selected>亲自出马</option>
+            <option v-for="bot in bots" :key="bot.id" :value="bot.id">
+              {{ bot.title }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-4">
         <div class="user-photo">
           <div class="user-photo">
             <img :src="$store.state.pk.opponent_photo" alt="">
@@ -31,33 +41,62 @@
 </template>
 
 <script>
-import { ref } from "vue";
-import { useStore } from "vuex";
+import {ref} from "vue";
+import {useStore} from "vuex";
+import axios from "axios";
 
 export default {
-    setup() {
-      const store = useStore();
-      let match_btn_info = ref("开始匹配");
+  setup() {
+    const store = useStore();
+    let match_btn_info = ref("开始匹配");
+    let bots = ref([]);
+    let select_bot = ref("-1");
 
-      const click_match_btn = ()=> {
-        if (match_btn_info.value === "开始匹配") {
-          match_btn_info.value = "取消";
-          store.state.pk.socket.send(JSON.stringify({
-            event: "start-matching",
-          }));
-        } else {
-          match_btn_info.value = "开始匹配";
-          store.state.pk.socket.send(JSON.stringify({
-            event: "stop-matching",
-          }))
-        }
-      }
-
-      return {
-        match_btn_info,
-        click_match_btn,
+    const click_match_btn = () => {
+      if (match_btn_info.value === "开始匹配") {
+        match_btn_info.value = "取消";
+        console.log(select_bot.value);
+        store.state.pk.socket.send(JSON.stringify({
+          event: "start-matching",
+          botId: select_bot.value,
+        }));
+      } else {
+        match_btn_info.value = "开始匹配";
+        store.state.pk.socket.send(JSON.stringify({
+          event: "stop-matching",
+        }))
       }
     }
+
+    const refresh_bots = () => {
+      axios.get('http://10.21.110.96:3000/user/bot/getList/', {
+        headers: {
+          Authorization: "Bearer " + store.state.user.token,
+        }
+      })
+          .then(res => {
+            if (res.data.code === 200) {
+              bots.value = res.data.userList;
+            }
+          })
+          .catch(() => {
+
+          })
+          .then(() => {
+            console.log("getBotList")
+          });
+    }
+
+    refresh_bots(); // 从云端获取bots
+
+    return {
+      match_btn_info,
+      click_match_btn,
+      bots,
+      refresh_bots,
+      select_bot,
+    }
+  }
 }
 
 </script>
@@ -70,19 +109,31 @@ div.matchground {
   margin: 40px auto;
   background-color: rgba(50, 50, 50, 0.5);
 }
+
 div.user-photo {
   text-align: center;
   padding-top: 7vh;
 }
+
 div.user-photo > img {
   border-radius: 50%;
   width: 20vh;
 }
+
 div.user-username {
   text-align: center;
   font-size: 24px;
   font-weight: 600;
   color: white;
   padding-top: 2vh;
+}
+
+div.user-select-bot {
+  padding-top: 20vh;
+}
+
+div.user-select-bot > select {
+  width: 60%;
+  margin: 0 auto;
 }
 </style>

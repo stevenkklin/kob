@@ -5,6 +5,6 @@ package com.kob.matchingsystem.service;
  * @create 2023-03-28-14:40
  */
 public interface MatchingService {
-    String addPlayer(Integer userId, Integer rating);
+    String addPlayer(Integer userId, Integer rating, Integer botId);
     String removePlayer(Integer userId);
 }
