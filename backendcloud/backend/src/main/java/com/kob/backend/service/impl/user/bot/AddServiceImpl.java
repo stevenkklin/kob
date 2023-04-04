@@ -1,7 +1,9 @@
 package com.kob.backend.service.impl.user.bot;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.kob.backend.exception.KOBException;
 import com.kob.backend.mapper.BotMapper;
+import com.kob.backend.mapper.UserMapper;
 import com.kob.backend.pojo.Bot;
 import com.kob.backend.pojo.User;
 import com.kob.backend.service.impl.utils.UserDetailsImpl;
@@ -59,6 +61,12 @@ public class AddServiceImpl implements AddService {
 
         if (content.length() > 10000) {
             throw new KOBException("代码长度不能超过10000");
+        }
+
+        QueryWrapper<Bot> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id",user.getId());
+        if (botMapper.selectCount(queryWrapper) >= 10) {
+            throw new KOBException("Bot数量不能超过10个!");
         }
 
         Date now = new Date();

@@ -19,12 +19,42 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Configuration // 标明是配置类
 @EnableSwagger2 //开启swagger功能
 @EnableWebMvc
 public class SwaggerConfig implements WebMvcConfigurer {
+
+    private ApiKey apiKey() {
+        return new ApiKey("JWT", "Authorization", "header");
+    }
+
+    private SecurityContext securityContext() {
+        return SecurityContext.builder().securityReferences(defaultAuth()).build();
+    }
+
+    private List<SecurityReference> defaultAuth() {
+        AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+        authorizationScopes[0] = authorizationScope;
+        return Arrays.asList(new SecurityReference("JWT", authorizationScopes));
+    }
+
+
+    @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo())
+                .securityContexts(Arrays.asList(securityContext()))
+                .securitySchemes(Arrays.asList(apiKey()))
+                .select()
+                .apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.any())
+                .build();
+    }
+
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -77,6 +107,8 @@ public class SwaggerConfig implements WebMvcConfigurer {
 //        docket.securityContexts(cxtList);
 //        return docket;
 //    }
+
+
 
     /**
      * 用于定义API主界面的信息，比如可以声明所有的API的总标题、描述、版本
