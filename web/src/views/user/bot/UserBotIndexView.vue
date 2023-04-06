@@ -206,7 +206,7 @@ export default {
 
 
     const refresh_bots = () => {
-      axios.get('http://10.21.110.96:3000/user/bot/getList/', {
+      axios.get('https://app4821.acapp.acwing.com.cn/api/user/bot/getList/', {
         headers: {
           Authorization: "Bearer " + store.state.user.token,
         }
@@ -228,7 +228,7 @@ export default {
 
     const add_bot = () => {
       botadd.msg = "";
-      axios.post('http://10.21.110.96:3000/user/bot/add/', {
+      axios.post('https://app4821.acapp.acwing.com.cn/api/user/bot/add/', {
         title: botadd.title,
         description: botadd.description,
         content: botadd.content,
@@ -258,7 +258,7 @@ export default {
     }
 
     const remove_bot = (bot) => {
-      axios.post('http://10.21.110.96:3000/user/bot/remove/', {
+      axios.post('https://app4821.acapp.acwing.com.cn/api/user/bot/remove/', {
         botId: bot.id,
       }, {
         headers: {
@@ -280,7 +280,7 @@ export default {
 
 
     const update_bot = (bot) => {
-      axios.post('http://10.21.110.96:3000/user/bot/update/', {
+      axios.post('https://app4821.acapp.acwing.com.cn/api/user/bot/update/', {
         botId: bot.id,
         title: bot.title,
         description: bot.description,

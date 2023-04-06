@@ -55,7 +55,7 @@ export default {
     const click_page= page => {
       if (page === -2) page = current_page - 1;
       if (page === -1) page = current_page + 1;
-      let max_pages = parseInt(Math.ceil(total_users / 3));
+      let max_pages = parseInt(Math.ceil(total_users / 10));
 
       if (page >= -1 && page <= max_pages) {
         pull_page(page);
@@ -64,7 +64,7 @@ export default {
     }
 
     const update_pages = () => {
-      let max_pages = parseInt(Math.ceil(total_users / 3));
+      let max_pages = parseInt(Math.ceil(total_users / 10));
       let new_pages = [];
       for (let i = current_page - 2; i <= current_page + 2; i ++ ) {
         if (i >= 1 && i <= max_pages) {
@@ -80,7 +80,7 @@ export default {
 
     const pull_page = page => {
       current_page = page;
-      axios.get('http://10.21.110.96:3000/rankList/getList/' + current_page + '/', {
+      axios.get('https://app4821.acapp.acwing.com.cn/api/rankList/getList/' + current_page + '/', {
         headers: {
           Authorization: "Bearer " + store.state.user.token,
         }

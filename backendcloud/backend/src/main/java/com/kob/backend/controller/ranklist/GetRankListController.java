@@ -20,7 +20,7 @@ public class GetRankListController {
     @Autowired
     private GetRankListService getRankListService;
 
-    @GetMapping("/rankList/getList/{page}")
+    @GetMapping("/api/rankList/getList/{page}")
     public R getList(@PathVariable int page) {
         return R.ok("获取排行榜列表成功").put("list",getRankListService.getList(page));
     }

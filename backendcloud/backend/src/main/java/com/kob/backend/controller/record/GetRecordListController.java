@@ -22,7 +22,7 @@ public class GetRecordListController {
     @Autowired
     private GetRecordListService getRecordListService;
 
-    @GetMapping("/record/getList/{page}")
+    @GetMapping("/api/record/getList/{page}")
     public R getList(@PathVariable int page) {
         return R.ok("获取记录分页成功").put("list", getRecordListService.getList(page));
     }

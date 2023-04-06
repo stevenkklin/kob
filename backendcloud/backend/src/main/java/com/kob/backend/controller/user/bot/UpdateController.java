@@ -20,7 +20,7 @@ public class UpdateController {
     @Autowired
     private UpdateService updateService;
 
-    @PostMapping("/user/bot/update")
+    @PostMapping("/api/user/bot/update")
     public R update(@RequestBody UpdateDTO updateDTO) {
         Map<String, String> map = new HashMap<>();
         map.put("botId", updateDTO.getBotId());

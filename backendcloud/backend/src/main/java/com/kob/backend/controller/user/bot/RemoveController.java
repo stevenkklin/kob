@@ -20,7 +20,7 @@ public class RemoveController {
     @Autowired
     private RemoveService removeService;
 
-    @PostMapping("/user/bot/remove")
+    @PostMapping("/api/user/bot/remove")
     public R remove(@RequestBody RemoveDTO removeDTO) {
         Map<String, String> params = new HashMap<>();
         params.put("botId", removeDTO.getBotId());

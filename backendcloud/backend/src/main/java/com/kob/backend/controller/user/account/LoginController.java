@@ -23,7 +23,7 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    @PostMapping("/user/account/token/")
+    @PostMapping("/api/user/account/token/")
     @ApiOperation("登录系统")
     public R getToken(@Valid @RequestBody LoginDTO form) {
 

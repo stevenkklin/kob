@@ -20,7 +20,7 @@ public class AddController {
     @Autowired
     private AddService addService;
 
-    @PostMapping("/user/bot/add/")
+    @PostMapping("/api/user/bot/add/")
     public R add(@RequestBody AddDTO addDTO) {
         Map<String, String> map = new HashMap<>();
         map.put("description", addDTO.getDescription());

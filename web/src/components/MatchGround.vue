@@ -69,7 +69,7 @@ export default {
     }
 
     const refresh_bots = () => {
-      axios.get('http://10.21.110.96:3000/user/bot/getList/', {
+      axios.get('https://app4821.acapp.acwing.com.cn/api/user/bot/getList/', {
         headers: {
           Authorization: "Bearer " + store.state.user.token,
         }

@@ -19,7 +19,7 @@ public class GetListController {
     @Autowired
     private GetListService getListService;
 
-    @GetMapping("/user/bot/getList")
+    @GetMapping("/api/user/bot/getList")
     public R getList(){
         return R.ok().put("userList", getListService.getList());
     }

@@ -41,7 +41,7 @@ export default {
     let error_message = ref('');
 
     const register = () => {
-      axios.post('http://10.21.110.96:3000/user/account/register/', {
+      axios.post('https://app4821.acapp.acwing.com.cn/api/user/account/register/', {
         username: username.value,
         password: password.value,
         confirmedPassword: confirmedPassword.value,

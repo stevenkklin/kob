@@ -96,7 +96,7 @@ export default {
 
     const pull_page = page => {
       current_page = page;
-      axios.get('http://10.21.110.96:3000/record/getList/' + current_page + '/', {
+      axios.get('https://app4821.acapp.acwing.com.cn/api/record/getList/' + current_page + '/', {
         headers: {
           Authorization: "Bearer " + store.state.user.token,
         }

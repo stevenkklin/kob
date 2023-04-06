@@ -18,7 +18,7 @@ public class InfoController {
     @Autowired
     private InfoService infoService;
 
-    @GetMapping("/user/account/info/")
+    @GetMapping("/api/user/account/info/")
     public R getInfo() {
         Map<String, String> map = infoService.getInfo();
         return R.ok("用户信息获取成功").ok(map);

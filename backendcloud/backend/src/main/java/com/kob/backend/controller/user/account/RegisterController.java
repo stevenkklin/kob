@@ -20,7 +20,7 @@ public class RegisterController {
     @Autowired
     RegisterService registerService;
 
-    @PostMapping("/user/account/register/")
+    @PostMapping("/api/user/account/register/")
     public R register(@RequestBody RegisterDTO registerForm) {
         String username = registerForm.getUsername();
         String password = registerForm.getPassword();
